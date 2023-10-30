@@ -20,6 +20,9 @@
   justify-content: center;
   cursor: pointer;
   font-size: 24px;
+  background-color: yellow;
+}
+.white {
   background-color: #fff;
 }
 

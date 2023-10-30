@@ -4,13 +4,14 @@ import './App.css';
 interface Cell {
   hasItem: boolean;
   clicked: boolean;
+  white: boolean;
 }
 
 function createItems() {
   const cells: Cell[] = [];
 
   for (let i = 0; i < 36; i++) {
-    cells.push({ hasItem: false, clicked: false });
+    cells.push({ hasItem: false, clicked: false, white: false });
   }
 
   const randomIndex = Math.floor(Math.random() * cells.length);
@@ -30,7 +31,7 @@ function App() {
 
   const onItemClick = (index: number) => {
     const updatedItems = [...items];
-    updatedItems[index] = { ...updatedItems[index], clicked: true };
+    updatedItems[index] = { ...updatedItems[index], clicked: true, white: true };
     setItems(updatedItems);
     setAttempts(attempts + 1);
   };
@@ -41,10 +42,10 @@ function App() {
         {items.map((cell, index) => (
           <div
             key={index}
-            className={`cell ${cell.clicked ? (cell.hasItem ? 'has-item' : '') : ''}`}
+            className={`cell ${cell.clicked ? (cell.hasItem ? 'has-item' : '') : ''} ${cell.white ? 'white' : ''}`}
             onClick={() => onItemClick(index)}
           >
-            {cell.clicked ? (cell.hasItem ? 'O' : '') : ''}
+            {cell.clicked ? (cell.hasItem ? '❤️' : '') : ''}
           </div>
         ))}
       </div>
