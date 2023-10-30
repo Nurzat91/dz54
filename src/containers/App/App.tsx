@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import './App.css';
 
 interface Cell {
@@ -7,33 +7,44 @@ interface Cell {
   white: boolean;
 }
 
-function createItems() {
-  const cells: Cell[] = [];
+function App() {
+  const  createItems = () => {
+    const cells: Cell[] = [];
 
-  for (let i = 0; i < 36; i++) {
-    cells.push({ hasItem: false, clicked: false, white: false });
+    for (let i = 0; i < 36; i++) {
+      cells.push({ hasItem: false, clicked: false, white: false });
+    }
+
+    const randomIndex = Math.floor(Math.random() * cells.length);
+    cells[randomIndex].hasItem = true;
+
+    return cells;
   }
 
-  const randomIndex = Math.floor(Math.random() * cells.length);
-  cells[randomIndex].hasItem = true;
-
-  return cells;
-}
-
-function App() {
   const [items, setItems] = useState(createItems());
   const [attempts, setAttempts] = useState(0);
+  const [found, setFound] = useState(false);
+  const [message, setMessage] = useState('');
 
   const resetGame = () => {
     setItems(createItems());
     setAttempts(0);
+    setFound(false);
+    setMessage('');
   };
 
   const onItemClick = (index: number) => {
-    const updatedItems = [...items];
-    updatedItems[index] = { ...updatedItems[index], clicked: true, white: true };
-    setItems(updatedItems);
-    setAttempts(attempts + 1);
+    if (!found) {
+      const updatedItems = [...items];
+      updatedItems[index] = { ...updatedItems[index], clicked: true, white: true };
+      setItems(updatedItems);
+      setAttempts(attempts + 1);
+
+      if (items[index].hasItem) {
+        setFound(true);
+        setMessage('Эмоджи найдено! Нажмите "Сброс", чтобы начать заново.');
+      }
+    }
   };
 
   return (
@@ -51,6 +62,7 @@ function App() {
       </div>
       <div className="info">
         <p>Количество попыток: {attempts}</p>
+        <p>{message}</p>
         <button onClick={resetGame}>Сброс</button>
       </div>
     </div>
