@@ -4,3 +4,49 @@
   padding: 2rem;
   text-align: center;
 }
+.game-container {
+  display: grid;
+  grid-template-columns: repeat(6, 50px);
+  gap: 5px;
+  margin: 20px;
+}
+
+.cell {
+  width: 50px;
+  height: 50px;
+  border: 1px solid #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 24px;
+  background-color: #fff;
+}
+
+.cell.has-item {
+  background-color: #00ff00;
+}
+
+.cell.clicked.has-item {
+  background-color: #00ff00;
+}
+
+.info {
+  text-align: center;
+  margin-top: 20px;
+}
+
+button {
+  background-color: #0074cc;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  margin: 10px;
+  border-radius: 5px;
+}
+
+button:hover {
+  background-color: #005aa7;
+}
